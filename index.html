@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snippet Creator</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="h1 text-center mt-3 mb-5">Snippet Creator</h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card bg-secondary">
+                            <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control mr-1" placeholder="Enter title" id="title">
+                                    <input type="text" class="form-control" placeholder="Tab trigger..." id="trigger">
+                                </div>
+                                <div class="form-group">
+                                    <textarea cols="30" rows="15" class="form-control"
+                                        placeholder="Enter your snippet..." id="snippet"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-secondary">
+                            <div class="card-body">
+                                <ul class="nav nav-pills nav-justified mb-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">Vs Code</a>
+                                    </li>
+                                    <li class="nav-item bg-white">
+                                        <a class="nav-link text-dark" href="#">Sublime Text</a>
+                                    </li>
+                                    <li class="nav-item bg-white">
+                                        <a class="nav-link text-dark" href="#">Atom</a>
+                                    </li>
+                                </ul>
+                                <div class="card-body bg-white result">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $("#snippet").keyup(function (e) {
+
+                $(".result").html(`
+                    <pre>
+"${$('#title').val()}": {
+    "prefix": "${$('#trigger').val()}",
+    "body": [
+        "${$('#snippet').val()}"
+    ],
+    "description": "${$('#title').val()}"
+}
+                    </pre>
+                `);
+                if (e.ctrlKey && e.keyCode == 'I'.charCodeAt(0)) {
+                    $(this).val('${1:example}');
+                }
+                if ($(this).val() == '') {
+                    $('.result').empty();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
