@@ -5,3 +5,11 @@
 .result {
     height: 400px;
 }
+
+.nav-link {
+    color: white;
+}
+
+.nav-item {
+    background: teal;
+}

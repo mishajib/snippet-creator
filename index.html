@@ -16,7 +16,7 @@
                 <h1 class="h1 text-center mt-3 mb-5">Snippet Creator</h1>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="card bg-secondary">
+                        <div class="card badge-dark">
                             <div class="card-body">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control mr-1" placeholder="Enter title" id="title">
@@ -30,21 +30,35 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card bg-secondary">
+                        <div class="card bg-dark">
                             <div class="card-body">
-                                <ul class="nav nav-pills nav-justified mb-3">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#">Vs Code</a>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item border-bottom" role="presentation">
+                                        <a class="nav-link active" id="vscode-tab" data-toggle="tab" href="#vscode"
+                                            role="tab" aria-controls="vscode" aria-selected="true">VsCode</a>
                                     </li>
-                                    <li class="nav-item bg-white">
-                                        <a class="nav-link text-dark" href="#">Sublime Text</a>
+                                    <li class="nav-item border-bottom" role="presentation">
+                                        <a class="nav-link" id="sublime-tab" data-toggle="tab" href="#sublime"
+                                            role="tab" aria-controls="sublime" aria-selected="false">Sublime</a>
                                     </li>
-                                    <li class="nav-item bg-white">
-                                        <a class="nav-link text-dark" href="#">Atom</a>
+                                    <li class="nav-item border-bottom" role="presentation">
+                                        <a class="nav-link" id="atom-tab" data-toggle="tab" href="#atom" role="tab"
+                                            aria-controls="atom" aria-selected="false">Atom</a>
                                     </li>
                                 </ul>
-                                <div class="card-body bg-white result">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="card-body tab-pane fade show active bg-white vscode result" id="vscode"
+                                        role="tabpanel" aria-labelledby="vscode-tab">
 
+                                    </div>
+                                    <div class="card-body tab-pane fade bg-white sublime result" id="sublime"
+                                        role="tabpanel" aria-labelledby="sublime-tab">
+
+                                    </div>
+                                    <div class="card-body tab-pane fade bg-white atom result" id="atom" role="tabpanel"
+                                        aria-labelledby="atom-tab">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +76,8 @@
         $(function () {
             $("#snippet").keyup(function (e) {
 
-                $(".result").html(`
+                if ($('#vscode-tab').hasClass('active')) {
+                    $(".vscode").html(`
                     <pre>
 "${$('#title').val()}": {
     "prefix": "${$('#trigger').val()}",
@@ -72,12 +87,15 @@
     "description": "${$('#title').val()}"
 }
                     </pre>
-                `);
-                if (e.ctrlKey && e.keyCode == 'I'.charCodeAt(0)) {
-                    $(this).val('${1:example}');
-                }
-                if ($(this).val() == '') {
-                    $('.result').empty();
+                    `);
+                    if (e.ctrlKey && e.keyCode == 'I'.charCodeAt(0)) {
+                        $(this).append('${1:example}');
+                    }
+                    if ($(this).val() == '') {
+                        $('.vscode').empty();
+                    }
+                } else if ($('#sublime-tab').hasClass('active')) {
+
                 }
             });
         });
